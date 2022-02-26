@@ -4,7 +4,7 @@ from pmdarima.arima import auto_arima
 from statsmodels.tsa.arima.model import ARIMA
 from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
-st.title('Indian Import and Export')
+st.title('Import and Export of Various Commodities by India')
 choice = ['None','Import','Export']
 
 z = st.sidebar.selectbox('Select Import or Export',choice)
