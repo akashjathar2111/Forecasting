@@ -106,8 +106,7 @@ else:
     elif feature == 'Quantity':
 
         #Total Export value of commodity per year
-        Quantity = data[data['Commodity']==commodity].groupby('Month')['Qty'].sum() 
-        Qty = pd.DataFrame(round(Quantity/1000,2))
+        Qty = data[data['Commodity']==commodity].groupby('Month')['Qty'].sum() 
         unit = data[data['Commodity']==commodity]['Unit'].unique()
         if str(unit) == '[nan]':
             st.write("Sorry We don't have Quanity data for this Perticular Commodity")
