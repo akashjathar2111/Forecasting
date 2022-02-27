@@ -7,10 +7,10 @@ from statsmodels.tsa.holtwinters import ExponentialSmoothing
 from sklearn.metrics import mean_squared_error
 
 
-st.title('Import and Export of Various Commodities by India')
+st.title('Import and Export of Various Commodities  by India')
 choice = ['None','Import','Export']
 
-z = st.sidebar.selectbox('Select Import or Export',choice)
+z = st.sidebar.selectbox('Tread Flow',choice)
 
 if z == 'None':
     pass
@@ -186,6 +186,6 @@ else:
     # for how many country India export this commodity per year
         country_count = data[data['Commodity']==Commodity].groupby('Month')['Country'].count() 
 
-        st.header('Country Count of Tread')
+        st.header(f'Country Count of Tread for {commodity}')
         st.line_chart(country_count)
     country(commodity)
