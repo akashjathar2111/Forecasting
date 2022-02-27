@@ -35,8 +35,8 @@ else:
 
 
         #Total Export value of commodity per year
-        value_sum = data[data['Commodity']==commodity].groupby('Month')['value(INR)'].sum()
-        value_sum = pd.DataFrame(value_sum)
+        Value_sum = data[data['Commodity']==commodity].groupby('Month')['value(INR)'].sum()
+        value_sum = pd.DataFrame(round(Value_sum/10**9))
         train = value_sum[:110]
         test = value_sum[110:]
 
@@ -83,20 +83,20 @@ else:
             Arima = ARIMA(X,order=order,seasonal_order=seasonal)
             model_fit = Arima.fit()
             forecast = model_fit.forecast(steps = n)
-            st.header('Value(INR)')
+            st.header( 'Forecasted Value(INR) by Arima Model in 10^9(INR) ')
             st.line_chart(forecast) 
     
 
 
         elif best_model == RMSE2:
             forecast = hwe_model_add_add.forecast(n)
-            st.header('Value(INR)')
+            st.header("Forecasted Value(INR) by Holts winter's Additive seasonality in 10^9(INR)")
             st.line_chart(forecast) 
 
 
         elif best_model == RMSE3:
             forecast = hwe_model_mul_add.forecast(n)
-            st.header('Value(INR)')
+            st.header("Forecasted Value(INR) by Holts winter's multiplicative seasonality in 10^9(INR)")
             st.line_chart(forecast)  
 
 
@@ -106,7 +106,8 @@ else:
     elif feature == 'Quantity':
 
         #Total Export value of commodity per year
-        Qty = data[data['Commodity']==commodity].groupby('Month')['Qty'].sum() 
+        Quantity = data[data['Commodity']==commodity].groupby('Month')['Qty'].sum() 
+        Qty = round(Quantity/10000,2)
         unit = data[data['Commodity']==commodity]['Unit'].unique()
         if str(unit) == '[nan]':
             st.write("Sorry We don't have Quanity data for this Perticular Commodity")
@@ -115,7 +116,7 @@ else:
             test = Qty[110:]
 
             #Arima Model
-            model = auto_arima(Qty, start_p=1, start_q=1,
+            model = auto_arima(train, start_p=1, start_q=1,
                         max_p=7, max_q=7,
                         m=12,             
                         seasonal=True,   
@@ -157,7 +158,7 @@ else:
                 model_fit = Arima.fit()
                 forecast = model_fit.forecast(steps = n)
                 st.header(f'Quantity (in{unit})')
-                st.header("Forecasted by ARIMA Model")
+                st.header(f"Forecasted Quantity by ARIMA Model in 10000*{str(unit)}")
                 st.line_chart(forecast)
 
 
@@ -165,14 +166,14 @@ else:
             elif best_model == RMSE2:
                 forecast = hwe_model_add_add.forecast(n)
                 st.header(f'Quantity (in{unit})')
-                st.header("Forecasted by Holts winter's Additive seasonality ")
+                st.header(f"Forecasted Quantity by Holts winter's Additive seasonality in 10000*{str(unit)}")
                 st.line_chart(forecast)
 
 
             elif best_model == RMSE3:
                 forecast = hwe_model_mul_add.forecast(n) 
                 st.header(f'Quantity (in{unit})')
-                st.header("Forecasted by Holts winter's multiplicative seasonality ")
+                st.header(f"Forecasted Quantity by Holts winter's multiplicative seasonality in 10000*{str(unit)} ")
                 st.line_chart(forecast) 
 
 
