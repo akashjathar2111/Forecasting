@@ -107,7 +107,7 @@ else:
 
         #Total Export value of commodity per year
         Quantity = data[data['Commodity']==commodity].groupby('Month')['Qty'].sum() 
-        Qty = round(Quantity/10000,2)
+        Qty = pd.DataFrame(round(Quantity/10000,2))
         unit = data[data['Commodity']==commodity]['Unit'].unique()
         if str(unit) == '[nan]':
             st.write("Sorry We don't have Quanity data for this Perticular Commodity")
@@ -127,21 +127,21 @@ else:
                         suppress_warnings=True, 
                         stepwise=True)
             pred_arima = model.predict(len(test))
-            RMSE1 = np.sqrt(mean_squared_error(test,pred_arima))            
+            RMSE1 = np.sqrt(mean_squared_error(test['Qty'],pred_arima))            
 
 
             #Holt Winter's Model
             ### Holts winter exponential smoothing with additive seasonality and additive trend
             hwe_model_add_add = ExponentialSmoothing(train,seasonal="add",trend="add",seasonal_periods=12).fit() #add the trend to the model
             pred_hwe_add_add = hwe_model_add_add.predict(start = test.index[0],end = test.index[-1])
-            RMSE2 =np.sqrt(mean_squared_error(test,pred_hwe_add_add))
+            RMSE2 =np.sqrt(mean_squared_error(test['Qty],pred_hwe_add_add))
 
 
 
             ### Holts winter exponential smoothing with multiplicative seasonality and additive trend
             hwe_model_mul_add = ExponentialSmoothing(train,seasonal="mul",trend="add",seasonal_periods=12).fit() 
             pred_hwe_mul_add = hwe_model_mul_add.predict(start = test.index[0],end = test.index[-1])
-            RMSE3 =np.sqrt(mean_squared_error(test,pred_hwe_mul_add))
+            RMSE3 =np.sqrt(mean_squared_error(test['Qty'],pred_hwe_mul_add))
 
             st.dataframe({'Model':['ARIMA','Holt Winter with additive seasonality','Holt Winter with multiplicative seasonality'],'RMSE':[RMSE1,RMSE2,RMSE3]})
             x = [RMSE1,RMSE2,RMSE3]
