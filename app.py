@@ -110,7 +110,7 @@ else:
         Qty = data[data['Commodity']==commodity].groupby('Month')['Qty'].sum() 
         unit = data[data['Commodity']==commodity]['Unit'].unique()
         
-        if str(unit) == ['nan']:
+        if str(unit) == '[nan]':
             st.write("Sorry We Don't Have Data of Quantity for perticular commodity")
         else:
             
