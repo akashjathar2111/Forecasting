@@ -88,16 +88,16 @@ else:
     
 
 
-    elif best_model == RMSE2:
-        forecast = hwe_model_add_add.forecast(n)
-        st.header('Value(INR)')
-        st.line_chart(forecast) 
+        elif best_model == RMSE2:
+            forecast = hwe_model_add_add.forecast(n)
+            st.header('Value(INR)')
+            st.line_chart(forecast) 
 
 
-    elif best_model == RMSE3:
-        forecast = hwe_model_mul_add.forecast(n)
-        st.header('Value(INR)')
-        st.line_chart(forecast)  
+        elif best_model == RMSE3:
+            forecast = hwe_model_mul_add.forecast(n)
+            st.header('Value(INR)')
+            st.line_chart(forecast)  
 
 
 
@@ -162,18 +162,18 @@ else:
 
 
 
-        elif best_model == RMSE2:
-            forecast = hwe_model_add_add.forecast(n)
-            st.header(f'Quantity (in{unit})')
-            st.header("Forecasted by Holts winter's Additive seasonality ")
-            st.line_chart(forecast)
+            elif best_model == RMSE2:
+                forecast = hwe_model_add_add.forecast(n)
+                st.header(f'Quantity (in{unit})')
+                st.header("Forecasted by Holts winter's Additive seasonality ")
+                st.line_chart(forecast)
 
 
-        elif best_model == RMSE3:
-            forecast = hwe_model_mul_add.forecast(n) 
-            st.header(f'Quantity (in{unit})')
-            st.header("Forecasted by Holts winter's multiplicative seasonality ")
-            st.line_chart(forecast) 
+            elif best_model == RMSE3:
+                forecast = hwe_model_mul_add.forecast(n) 
+                st.header(f'Quantity (in{unit})')
+                st.header("Forecasted by Holts winter's multiplicative seasonality ")
+                st.line_chart(forecast) 
 
 
 
