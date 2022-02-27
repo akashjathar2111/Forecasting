@@ -107,7 +107,7 @@ else:
 
         #Total Export value of commodity per year
         Quantity = data[data['Commodity']==commodity].groupby('Month')['Qty'].sum() 
-        Qty = pd.DataFrame(round(Quantity/10000,2))
+        Qty = pd.DataFrame(round(Quantity/1000,2))
         unit = data[data['Commodity']==commodity]['Unit'].unique()
         if str(unit) == '[nan]':
             st.write("Sorry We don't have Quanity data for this Perticular Commodity")
@@ -158,7 +158,7 @@ else:
                 model_fit = Arima.fit()
                 forecast = model_fit.forecast(steps = n)
                 st.header(f'Quantity (in{unit})')
-                st.header(f"Forecasted Quantity by ARIMA Model in 10000*{str(unit)}")
+                st.header(f"Forecasted Quantity by ARIMA Model in 1000*{str(unit)}")
                 st.line_chart(forecast)
 
 
@@ -166,14 +166,14 @@ else:
             elif best_model == RMSE2:
                 forecast = hwe_model_add_add.forecast(n)
                 st.header(f'Quantity (in{unit})')
-                st.header(f"Forecasted Quantity by Holts winter's Additive seasonality in 10000*{str(unit)}")
+                st.header(f"Forecasted Quantity by Holts winter's Additive seasonality in 1000*{str(unit)}")
                 st.line_chart(forecast)
 
 
             elif best_model == RMSE3:
                 forecast = hwe_model_mul_add.forecast(n) 
                 st.header(f'Quantity (in{unit})')
-                st.header(f"Forecasted Quantity by Holts winter's multiplicative seasonality in 10000*{str(unit)} ")
+                st.header(f"Forecasted Quantity by Holts winter's multiplicative seasonality in 1000*{str(unit)} ")
                 st.line_chart(forecast) 
 
 
