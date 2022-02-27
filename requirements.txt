@@ -2,3 +2,5 @@ streamlit
 statsmodels >=0.9.0
 pandas>=1.3.4
 pmdarima >= 1.8.4
+numpy
+sklearn
