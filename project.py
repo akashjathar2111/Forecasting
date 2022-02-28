@@ -176,7 +176,7 @@ else:
                     st.header(f'Quantity (in{unit})')
                     st.line_chart(forecast) 
             
-             elif best_model == RMSE2:
+            elif best_model == RMSE2:
                     X = Qty.values
                     X = X.astype('float32')
                     hwe_model_add_add = ExponentialSmoothing(X,seasonal="add",trend="add",seasonal_periods=12)
