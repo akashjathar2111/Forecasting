@@ -45,7 +45,7 @@ else:
         #Arima Model
         model = auto_arima(train, start_p=1, start_q=1,
                     max_p=7, max_q=7,
-                    m=12,  ######################################           
+                    m=12,         
                     seasonal=True,   
                     start_P=0, 
                     D=None, 
@@ -58,14 +58,14 @@ else:
 
         #Holt Winter's Model
         ### Holts winter exponential smoothing with additive seasonality and additive trend
-        hwe_model_add_add = ExponentialSmoothing(value_sum,seasonal="add",trend="add",seasonal_periods=12).fit() #add the trend to the model
+        hwe_model_add_add = ExponentialSmoothing(train,seasonal="add",trend="add",seasonal_periods=12).fit() #add the trend to the model
         pred_hwe_add_add = hwe_model_add_add.predict(start = test.index[0],end = test.index[-1])
         RMSE2 =np.sqrt(mean_squared_error(test,pred_hwe_add_add))
 
 
 
         ### Holts winter exponential smoothing with multiplicative seasonality and additive trend
-        hwe_model_mul_add = ExponentialSmoothing(value_sum,seasonal="mul",trend="add",seasonal_periods=12).fit() 
+        hwe_model_mul_add = ExponentialSmoothing(train,seasonal="mul",trend="add",seasonal_periods=12).fit() 
         pred_hwe_mul_add = hwe_model_mul_add.predict(start = test.index[0],end = test.index[-1])
         RMSE3 =np.sqrt(mean_squared_error(test,pred_hwe_mul_add))
 
@@ -79,7 +79,7 @@ else:
             order = model.order
             seasonal = model.seasonal_order
 
-            X = train.values
+            X = Value_sum.values
             X = X.astype('float32')
 
             Arima = ARIMA(X,order=order,seasonal_order=seasonal)
@@ -92,6 +92,7 @@ else:
 
 
         elif best_model == RMSE2:
+            hwe_model_add_add = ExponentialSmoothing(Value_sum,seasonal="add",trend="add",seasonal_periods=12).fit()
             forecast = pd.DataFrame(hwe_model_add_add.forecast(steps = n))
             forecast = forecast.set_index(month.Month[:n])
             st.header("Forecasted Value(INR) by Holts winter's Additive seasonality in (INR)")
@@ -99,6 +100,7 @@ else:
 
 
         elif best_model == RMSE3:
+            hwe_model_mul_add = ExponentialSmoothing(train,seasonal="mul",trend="add",seasonal_periods=12).fit()
             forecast = pd.DataFrame(hwe_model_mul_add.forecast(steps = n))
             forecast = forecast.set_index(month.Month[:n])
             st.header("Forecasted Value(INR) by Holts winter's multiplicative seasonality in INR")
@@ -126,7 +128,7 @@ else:
             #Arima Model
             model = auto_arima(Qty, start_p=1, start_q=1,
                         max_p=7, max_q=7,
-                        m=12,  ######################################           
+                        m=12,            
                         seasonal=True,   
                         start_P=0, 
                         D=None, 
