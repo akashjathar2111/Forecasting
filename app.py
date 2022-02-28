@@ -53,6 +53,7 @@ else:
                     error_action='ignore',  
                     suppress_warnings=True, 
                     stepwise=True)
+        model.fit(train)
         pred_arima = model.predict(len(test))
         RMSE1 = np.sqrt(mean_squared_error(test,pred_arima))
 
@@ -136,6 +137,7 @@ else:
                         error_action='ignore',  
                         suppress_warnings=True, 
                         stepwise=True)
+            model.fit(train)
             pred_arima = model.predict(len(test))
             RMSE1 = np.sqrt(mean_squared_error(test,pred_arima))            
 
