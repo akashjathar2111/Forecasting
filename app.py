@@ -38,14 +38,14 @@ else:
 
         #Total Export value of commodity per year
         Value_sum = data[data['Commodity']==commodity].groupby('Month')['value(INR)'].sum()
-                  
+        Value_sum = pd.DataFrame(Value_sum)          
         train = Value_sum[:110]
         test = Value_sum[110:]
 
         #Arima Model
-        model = auto_arima(train, start_p=1, start_q=1,
+        model = auto_arima(Qty, start_p=1, start_q=1,
                     max_p=7, max_q=7,
-                    m=12,         
+                    m=12,  ######################################           
                     seasonal=True,   
                     start_P=0, 
                     D=None, 
@@ -53,9 +53,8 @@ else:
                     error_action='ignore',  
                     suppress_warnings=True, 
                     stepwise=True)
-        
-        pred_arima = model.predict(start = 110,end = 132)
-        RMSE1 = np.sqrt(mean_squared_error(test,pred_arima))
+        pred_arima = model.predict(len(test))
+        RMSE1 = np.sqrt(mean_squared_error(test,pred_arima)) 
 
         #Holt Winter's Model
         ### Holts winter exponential smoothing with additive seasonality and additive trend
@@ -117,7 +116,7 @@ else:
         #Total Export value of commodity per year
         Qty = data[data['Commodity']==commodity].groupby('Month')['Qty'].sum() 
         unit = data[data['Commodity']==commodity]['Unit'].unique()
-        
+        Qty= pd.DataFrame(Qty)
         if str(unit) == '[nan]':
             st.write("Sorry We Don't Have Data of Quantity for perticular commodity")
         else:
