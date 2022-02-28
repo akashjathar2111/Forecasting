@@ -54,7 +54,7 @@ else:
                     error_action='ignore',  
                     suppress_warnings=True, 
                     stepwise=True)
-        pred_arima = model.predict(22)
+        pred_arima = model.predict(111,132)
         RMSE1 = np.sqrt(mean_squared_error(test['value(INR)'],pred_arima))
 
         #Holt Winter's Model
