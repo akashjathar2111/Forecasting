@@ -144,13 +144,13 @@ else:
            
             order = model.order
             seasonal = model.seasonal_order
-
+            n = st.sidebar.slider('Forecasted',min_value=1,max_value=36)
             X = Qty.values
             X = X.astype('float32')
 
             Arima = ARIMA(X,order=order,seasonal_order=seasonal)
             model_fit = Arima.fit()
-            forecast = pd.DataFrame(model_fit.forecast(steps = n))
+            forecast = pd.DataFrame(model_fit.forecast(n))
             forecast = forecast.set_index(month.Month[:n])
             st.header(f'Quantity (in{unit})')
             st.header("Forecasted by ARIMA Model")
