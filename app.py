@@ -21,6 +21,7 @@ else:
     data = df
     del df
     data['Month']= pd.to_datetime(data['Month'])
+    month = pd.read_csv('Forecasted_Month.csv')
 
     m = data['Commodity'].unique()
 
@@ -82,20 +83,23 @@ else:
 
             Arima = ARIMA(X,order=order,seasonal_order=seasonal)
             model_fit = Arima.fit()
-            forecast = model_fit.forecast(steps = n)
+            forecast = pd.DataFrame(model_fit.forecast(steps = n))
+            forecast = forecast.set_index(month.Month[:n])
             st.header( 'Forecasted Value(INR) by Arima Model in 10^8(INR) ')
             st.line_chart(forecast) 
     
 
 
         elif best_model == RMSE2:
-            forecast = hwe_model_add_add.forecast(n)
+            forecast = pd.DataFrame(hwe_model_add_add.forecast(steps = n))
+            forecast = forecast.set_index(month.Month[:n])
             st.header("Forecasted Value(INR) by Holts winter's Additive seasonality in 10^8(INR)")
             st.line_chart(forecast) 
 
 
         elif best_model == RMSE3:
-            forecast = hwe_model_mul_add.forecast(n)
+            forecast = pd.DataFrame(hwe_model_mul_add.forecast(steps = n))
+            forecast = forecast.set_index(month.Month[:n])
             st.header("Forecasted Value(INR) by Holts winter's multiplicative seasonality in 10^8(INR)")
             st.line_chart(forecast)  
 
