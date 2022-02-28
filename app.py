@@ -43,7 +43,7 @@ else:
         test = Value_sum[110:]
 
         #Arima Model
-        model = auto_arima(Qty, start_p=1, start_q=1,
+        model = auto_arima(train, start_p=1, start_q=1,
                     max_p=7, max_q=7,
                     m=12,  ######################################           
                     seasonal=True,   
@@ -126,7 +126,7 @@ else:
             test = Qty[110:]
 
             #Arima Model
-            model = auto_arima(Qty, start_p=1, start_q=1,
+            model = auto_arima(train, start_p=1, start_q=1,
                         max_p=7, max_q=7,
                         m=12,            
                         seasonal=True,   
@@ -137,7 +137,7 @@ else:
                         suppress_warnings=True, 
                         stepwise=True)
             
-            pred_arima = model.predict(start = 110,end = 132)
+            pred_arima = model.predict(len(test))
             RMSE1 = np.sqrt(mean_squared_error(test,pred_arima))            
 
 
@@ -176,6 +176,7 @@ else:
 
 
             elif best_model == RMSE2:
+                hwe_model_add_add = ExponentialSmoothing(Qty,seasonal="add",trend="add",seasonal_periods=12)
                 forecast = pd.DataFrame(hwe_model_add_add.forecast(steps = n))
                 forecast = forecast.set_index(month.Month[:n])
                 st.header(f'Quantity (in{unit})')
@@ -184,6 +185,7 @@ else:
 
 
             elif best_model == RMSE3:
+                hwe_model_mul_add = ExponentialSmoothing(Qty,seasonal="mul",trend="add",seasonal_periods=12)
                 forecast = pd.DataFrame(hwe_model_mul_add.forecast(steps = n))
                 forecast = forecast.set_index(month.Month[:n])
                 st.header(f'Quantity (in{unit})')
