@@ -22,6 +22,7 @@ else:
     del df
     data['Month']= pd.to_datetime(data['Month'])
     month = pd.read_csv('Forecasted_month.csv')
+    month['Month']= pd.to_datetime(month['Month'])
 
     m = data['Commodity'].unique()
 
