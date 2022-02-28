@@ -39,6 +39,7 @@ else:
         #Total Export value of commodity per year
         Value_sum = data[data['Commodity']==commodity].groupby('Month')['value(INR)'].sum()
         value_sum = pd.DataFrame(round(Value_sum/10**8))
+          
         train = value_sum[:110]
         test = value_sum[110:]
 
@@ -164,7 +165,8 @@ else:
 
                 Arima = ARIMA(X,order=order,seasonal_order=seasonal)
                 model_fit = Arima.fit()
-                forecast = model_fit.forecast(steps = n)
+                forecast = pd.DataFrame(model_fit.forecast(steps = n))
+                forecast = forecast.set_index(month.Month[:n])
                 st.header(f'Quantity (in{unit})')
                 st.header("Forecasted by ARIMA Model")
                 st.line_chart(forecast)
@@ -172,19 +174,21 @@ else:
 
 
             elif best_model == RMSE2:
-                forecast = hwe_model_add_add.forecast(n)
+                forecast = pd.DataFrame(hwe_model_add_add.forecast(steps = n))
+                forecast = forecast.set_index(month.Month[:n])
                 st.header(f'Quantity (in{unit})')
                 st.header("Forecasted by Holts winter's Additive seasonality ")
                 st.line_chart(forecast)
 
 
             elif best_model == RMSE3:
-                forecast = hwe_model_mul_add.forecast(n) 
+                forecast = pd.DataFrame(hwe_model_mul_add.forecast(steps = n))
+                forecast = forecast.set_index(month.Month[:n])
                 st.header(f'Quantity (in{unit})')
                 st.header("Forecasted by Holts winter's multiplicative seasonality ")
                 st.line_chart(forecast) 
 
-
+     
 
 
 
@@ -198,3 +202,6 @@ else:
         st.header(f'Country Count of Tread for {commodity}')
         st.line_chart(country_count)
     country(commodity)
+
+
+        
