@@ -116,7 +116,6 @@ else:
         #Total Export value of commodity per year
         Qty = data[data['Commodity']==commodity].groupby('Month')['Qty'].sum() 
         unit = data[data['Commodity']==commodity]['Unit'].unique()
-        Qty= pd.DataFrame(Qty)
         if str(unit) == '[nan]':
             st.write("Sorry We Don't Have Data of Quantity for perticular commodity")
         else:
