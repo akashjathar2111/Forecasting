@@ -156,7 +156,7 @@ else:
 
             st.dataframe({'Model':['ARIMA','Holt Winter with additive seasonality','Holt Winter with multiplicative seasonality'],'RMSE':[RMSE1,RMSE2,RMSE3]})
             x = [RMSE1,RMSE2,RMSE3]
-            n = st.sidebar.slider('Forecasted',min_value=1,max_value=50)
+            n = st.sidebar.slider('Forecasted',min_value=1,max_value=36)
             best_model = pd.Series(x).min()
             if best_model == RMSE1:
                 order = model.order
