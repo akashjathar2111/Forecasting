@@ -176,7 +176,9 @@ else:
 
 
             elif best_model == RMSE2:
-                hwe_model_add_add = ExponentialSmoothing(Qty.values,seasonal="add",trend="add",seasonal_periods=12)
+                X = Qty.values
+                X = X.astype('float32')
+                hwe_model_add_add = ExponentialSmoothing(X,seasonal="add",trend="add",seasonal_periods=12)
                 forecast = pd.DataFrame(hwe_model_add_add.forecast(steps = n))
                 forecast = forecast.set_index(month.Month[:n])
                 st.header(f'Quantity (in{unit})')
@@ -185,7 +187,9 @@ else:
 
 
             elif best_model == RMSE3:
-                hwe_model_mul_add = ExponentialSmoothing(Qty.values,seasonal="mul",trend="add",seasonal_periods=12)
+                X = Qty.values
+                X = X.astype('float32')
+                hwe_model_mul_add = ExponentialSmoothing(X,seasonal="mul",trend="add",seasonal_periods=12)
                 forecast = pd.DataFrame(hwe_model_mul_add.forecast(steps = n))
                 forecast = forecast.set_index(month.Month[:n])
                 st.header(f'Quantity (in{unit})')
