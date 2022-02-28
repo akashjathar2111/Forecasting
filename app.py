@@ -92,7 +92,7 @@ else:
 
 
         elif best_model == RMSE2:
-            hwe_model_add_add = ExponentialSmoothing(Value_sum,seasonal="add",trend="add",seasonal_periods=12).fit()
+            hwe_model_add_add = ExponentialSmoothing(Value_sum.values,seasonal="add",trend="add",seasonal_periods=12).fit()
             forecast = pd.DataFrame(hwe_model_add_add.forecast(steps = n))
             forecast = forecast.set_index(month.Month[:n])
             st.header("Forecasted Value(INR) by Holts winter's Additive seasonality in (INR)")
@@ -100,7 +100,7 @@ else:
 
 
         elif best_model == RMSE3:
-            hwe_model_mul_add = ExponentialSmoothing(train,seasonal="mul",trend="add",seasonal_periods=12).fit()
+            hwe_model_mul_add = ExponentialSmoothing(Value_sum.values,seasonal="mul",trend="add",seasonal_periods=12).fit()
             forecast = pd.DataFrame(hwe_model_mul_add.forecast(steps = n))
             forecast = forecast.set_index(month.Month[:n])
             st.header("Forecasted Value(INR) by Holts winter's multiplicative seasonality in INR")
@@ -176,7 +176,7 @@ else:
 
 
             elif best_model == RMSE2:
-                hwe_model_add_add = ExponentialSmoothing(Qty,seasonal="add",trend="add",seasonal_periods=12)
+                hwe_model_add_add = ExponentialSmoothing(Qty.values,seasonal="add",trend="add",seasonal_periods=12)
                 forecast = pd.DataFrame(hwe_model_add_add.forecast(steps = n))
                 forecast = forecast.set_index(month.Month[:n])
                 st.header(f'Quantity (in{unit})')
@@ -185,7 +185,7 @@ else:
 
 
             elif best_model == RMSE3:
-                hwe_model_mul_add = ExponentialSmoothing(Qty,seasonal="mul",trend="add",seasonal_periods=12)
+                hwe_model_mul_add = ExponentialSmoothing(Qty.values,seasonal="mul",trend="add",seasonal_periods=12)
                 forecast = pd.DataFrame(hwe_model_mul_add.forecast(steps = n))
                 forecast = forecast.set_index(month.Month[:n])
                 st.header(f'Quantity (in{unit})')
