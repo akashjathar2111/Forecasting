@@ -38,7 +38,7 @@ else:
 
         #Total Export value of commodity per year
         Value_sum = data[data['Commodity']==commodity].groupby('Month')['value(INR)'].sum()
-        Value_sum = pd.DataFrame(Value_sum)          
+                 
         train = Value_sum[:110]
         test = Value_sum[110:]
 
