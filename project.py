@@ -163,39 +163,39 @@ else:
             best_model = pd.Series(x).min()
             if best_model == RMSE1:
              
-                order = model.order
-                seasonal = model.seasonal_order
+                    order = model.order
+                    seasonal = model.seasonal_order
 
-                X = Qty.values
-                X = X.astype('float32')
+                    X = Qty.values
+                    X = X.astype('float32')
 
-                Arima = ARIMA(X,order=order,seasonal_order=seasonal)
-                model_fit = Arima.fit()
-                forecast = pd.DataFrame(model_fit.forecast(steps = n))
-                forecast = forecast.set_index(month.Month[:n])
-                st.header(f'Quantity (in{unit})')
-                st.line_chart(forecast) 
+                    Arima = ARIMA(X,order=order,seasonal_order=seasonal)
+                    model_fit = Arima.fit()
+                    forecast = pd.DataFrame(model_fit.forecast(steps = n))
+                    forecast = forecast.set_index(month.Month[:n])
+                    st.header(f'Quantity (in{unit})')
+                    st.line_chart(forecast) 
             
              elif best_model == RMSE2:
-                X = Qty.values
-                X = X.astype('float32')
-                hwe_model_add_add = ExponentialSmoothing(X,seasonal="add",trend="add",seasonal_periods=12)
-                forecast = pd.DataFrame(hwe_model_add_add.forecast(steps = n))
-                forecast = forecast.set_index(month.Month[:n])
-                st.header(f'Quantity (in{unit})')
-                st.header("Forecasted by Holts winter's Additive seasonality ")
-                st.line_chart(forecast)
+                    X = Qty.values
+                    X = X.astype('float32')
+                    hwe_model_add_add = ExponentialSmoothing(X,seasonal="add",trend="add",seasonal_periods=12)
+                    forecast = pd.DataFrame(hwe_model_add_add.forecast(steps = n))
+                    forecast = forecast.set_index(month.Month[:n])
+                    st.header(f'Quantity (in{unit})')
+                    st.header("Forecasted by Holts winter's Additive seasonality ")
+                    st.line_chart(forecast)
 
 
             elif best_model == RMSE3:
-                X = Qty.values
-                X = X.astype('float32')
-                hwe_model_mul_add = ExponentialSmoothing(X,seasonal="mul",trend="add",seasonal_periods=12)
-                forecast = pd.DataFrame(hwe_model_mul_add.forecast(steps = n))
-                forecast = forecast.set_index(month.Month[:n])
-                st.header(f'Quantity (in{unit})')
-                st.header("Forecasted by Holts winter's multiplicative seasonality ")
-                st.line_chart(forecast) 
+                    X = Qty.values
+                    X = X.astype('float32')
+                    hwe_model_mul_add = ExponentialSmoothing(X,seasonal="mul",trend="add",seasonal_periods=12)
+                    forecast = pd.DataFrame(hwe_model_mul_add.forecast(steps = n))
+                    forecast = forecast.set_index(month.Month[:n])
+                    st.header(f'Quantity (in{unit})')
+                    st.header("Forecasted by Holts winter's multiplicative seasonality ")
+                    st.line_chart(forecast) 
 
         
 
