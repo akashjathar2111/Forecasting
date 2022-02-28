@@ -20,7 +20,7 @@ else:
     df = df1.append(df2)
     data = df
     del df
-    data['Month']= pd.to_datetime(data['Month'])
+    #data['Month']= pd.to_datetime(data['Month'])
     month = pd.read_csv('Forecasted_month.csv')
     month['Month']= pd.to_datetime(month['Month'])
 
