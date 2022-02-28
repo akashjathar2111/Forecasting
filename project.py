@@ -38,7 +38,7 @@ else:
 
         #Total Export value of commodity per year
         Value_sum = data[data['Commodity']==commodity].groupby('Month')['value(INR)'].sum()
-        Value_sum = pd.DataFrame(Value_sum)         
+        #Value_sum = pd.DataFrame(Value_sum)         
         train = Value_sum[:110]
         test = Value_sum[110:]
 
@@ -115,7 +115,7 @@ else:
       
         #Total Export value of commodity per year
         Qty = data[data['Commodity']==commodity].groupby('Month')['Qty'].sum() 
-        Qty = pd.DataFrame(Qty)
+        #Qty = pd.DataFrame(Qty)
         unit = data[data['Commodity']==commodity]['Unit'].unique()
         if str(unit) == '[nan]':
             st.write("Sorry We Don't Have Data of Quantity for perticular commodity")
