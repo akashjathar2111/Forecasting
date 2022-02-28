@@ -38,10 +38,9 @@ else:
 
         #Total Export value of commodity per year
         Value_sum = data[data['Commodity']==commodity].groupby('Month')['value(INR)'].sum()
-        value_sum = pd.DataFrame(round(Value_sum/10**8))
-          
-        train = value_sum[:110]
-        test = value_sum[110:]
+                  
+        train = Value_sum[:110]
+        test = Value_sum[110:]
 
         #Arima Model
         model = auto_arima(train, start_p=1, start_q=1,
@@ -87,7 +86,7 @@ else:
             model_fit = Arima.fit()
             forecast = pd.DataFrame(model_fit.forecast(steps = n))
             forecast = forecast.set_index(month.Month[:n])
-            st.header( 'Forecasted Value(INR) by Arima Model in 10^8(INR) ')
+            st.header( 'Forecasted Value(INR) by Arima Model in(INR) ')
             st.line_chart(forecast) 
     
 
@@ -95,14 +94,14 @@ else:
         elif best_model == RMSE2:
             forecast = pd.DataFrame(hwe_model_add_add.forecast(steps = n))
             forecast = forecast.set_index(month.Month[:n])
-            st.header("Forecasted Value(INR) by Holts winter's Additive seasonality in 10^8(INR)")
+            st.header("Forecasted Value(INR) by Holts winter's Additive seasonality in (INR)")
             st.line_chart(forecast) 
 
 
         elif best_model == RMSE3:
             forecast = pd.DataFrame(hwe_model_mul_add.forecast(steps = n))
             forecast = forecast.set_index(month.Month[:n])
-            st.header("Forecasted Value(INR) by Holts winter's multiplicative seasonality in 10^8(INR)")
+            st.header("Forecasted Value(INR) by Holts winter's multiplicative seasonality in INR")
             st.line_chart(forecast)  
 
 
