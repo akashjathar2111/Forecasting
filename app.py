@@ -172,10 +172,6 @@ elif feature == 'Quantity':
 
     
       
-            
-
-
-
 def country(Commodity):
 # for how many country India export this commodity per year
     country_count = data[data['Commodity']==Commodity].groupby('Month')['Country'].count() 
