@@ -9,11 +9,11 @@ from statsmodels.tsa.holtwinters import ExponentialSmoothing
 
 
 x = ['Import','Export']
-data = st.sidebar.selectbox('Select Import or Export',x)
+choice = st.sidebar.selectbox('Select Import or Export',x)
 
 
-df1 = pd.read_csv(r"C:\Users\Shri Ganesha\Documents\akash doc\msc\project\final_data/"+str(data)+str("_monthly11_15.csv"))
-df2 = pd.read_csv(r"C:\Users\Shri Ganesha\Documents\akash doc\msc\project\final_data/"+str(data)+str("_monthly16_21.csv"))
+df1 = pd.read_csv(str(choice)+str("_monthly11_15.csv"))
+df2 = pd.read_csv(str(choice)+str("_monthly16_21.csv"))
 df = df1.append(df2)
 data= df
 del df
